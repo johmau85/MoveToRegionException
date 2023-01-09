@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:MoveToRegionException.ViewModels"
+             xmlns:models="clr-namespace:MoveToRegionException.Models"
+             x:DataType="viewmodels:MainPageViewModel"
+             x:Class="MoveToRegionException.Views.MainPage">
+
+    <RefreshView Command="{Binding GetCitiesCommand}"
+                 IsRefreshing="{Binding IsRefreshing}">
+        <ContentView>
+            <CollectionView ItemsSource="{Binding Cities}"
+                            SelectionMode="None">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:City">
+                        <Frame Margin="5"
+                               Padding="5">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:MainPageViewModel}}, Path=GoToDetailsCommand}"
+                                                      CommandParameter="{Binding .}"/>
+                            </Frame.GestureRecognizers>
+                            <Grid ColumnDefinitions="*,2*"
+                                  RowDefinitions="3*,2*,2*">
+                                <Label Grid.Row="0"
+                                        Grid.ColumnSpan="2"
+                                        Text="{Binding Name}"
+                                        FontSize="Medium"/>
+                                <Label Grid.Row="1"
+                                        Grid.Column="0"
+                                        Text="Latitude:"/>
+                                <Label Grid.Row="1"
+                                        Grid.Column="1"
+                                        Text="{Binding Latitude}"/>
+                                <Label Grid.Row="2"
+                                        Grid.Column="0"
+                                        Text="Longitude:"/>
+                                <Label Grid.Row="2"
+                                        Grid.Column="1"
+                                        Text="{Binding Longitude}"/>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </ContentView>
+    </RefreshView>
+</ContentPage>
+
