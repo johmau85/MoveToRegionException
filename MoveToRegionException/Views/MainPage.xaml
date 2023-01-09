@@ -5,20 +5,37 @@
              xmlns:models="clr-namespace:MoveToRegionException.Models"
              x:DataType="viewmodels:MainPageViewModel"
              x:Class="MoveToRegionException.Views.MainPage">
-
+    <ContentPage.Resources>
+        <Style TargetType="Border">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor"
+                                        Value="LightSkyBlue" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
     <RefreshView Command="{Binding GetCitiesCommand}"
                  IsRefreshing="{Binding IsRefreshing}">
         <ContentView>
             <CollectionView ItemsSource="{Binding Cities}"
-                            SelectionMode="None">
+                            SelectionMode="Single"
+                            SelectedItem="{Binding SelectedCity}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="models:City">
-                        <Frame Margin="5"
+                        <Border Margin="5"
                                Padding="5">
-                            <Frame.GestureRecognizers>
+                            <!--Frame.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:MainPageViewModel}}, Path=GoToDetailsCommand}"
                                                       CommandParameter="{Binding .}"/>
-                            </Frame.GestureRecognizers>
+                            </Frame.GestureRecognizers-->
                             <Grid ColumnDefinitions="*,2*"
                                   RowDefinitions="3*,2*,2*">
                                 <Label Grid.Row="0"
@@ -38,7 +55,7 @@
                                         Grid.Column="1"
                                         Text="{Binding Longitude}"/>
                             </Grid>
-                        </Frame>
+                        </Border>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

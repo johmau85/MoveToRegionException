@@ -60,12 +60,14 @@ public partial class MainPageViewModel : ObservableObject
     }
 
     [ObservableProperty]
-    private City selectedCity;
+    private City selectedCity = null;
 
     async partial void OnSelectedCityChanged(City value)
     {
         await GoToDetails(value);
+        SelectedCity = null;
     }
+
 
     [RelayCommand]
     private async Task GoToDetails(City city)
